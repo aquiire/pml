@@ -1,32 +1,91 @@
 ---
-title: "Are You Really Fit?"
+title: "Are You Really Committed?"
 output:
   html_document:
     df_print: paged
 ---
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+## Explore
+ 
 
 ```{r}
-plot(cars)
+set.seed(42)
+df = read.csv("pml-training.csv")
+print(dim(df))
+print(names(df))
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
 ```{r}
-1+1
+summary(df)
 ```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+Task is to predict class given an observation. Procedure: clean data (feature extraction / imputation) and build the prediction model. Data split is random for validation because a time series approach is not taken. Random Forest method is chosen as the classifier.
 
-Pressing buttons is not my forte.
+```{r}
+library(caret)
+```
 
-Mouse is not my forte either
+## Impute
+
+Impute unknown value with large negative value
+
+```{r}
+df[is.na(df)] <- -10000
+```
 
 
-$$2^3 = \left(\sum_{x=1}^{n}\frac{x+1}{x-1}\right)$$
-There's a place in my heart.
-Words donmean anything
+## Split
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+unique(df$classe)
+```
+
+
+
+```{r}
+inTrain = createDataPartition(df$classe,p=3/4)[[1]]
+
+train = df[inTrain,]
+# shuffle train data
+rows = sample(nrow(train))
+train = train[rows,]
+
+test = df[-inTrain,]
+```
+
+
+```{r}
+dim(test)
+```
+
+
+
+## Train random forest model
+
+```{r}
+unique(test$classe)
+```
+
+
+```{r}
+rfm = train(x=train[c(1:1000),-160],y=train[c(1:1000),]$classe,method='rf')
+```
+## Test Model
+
+
+
+
+```{r}
+confusionMatrix(factor(predict(rfm,test[,-160])),factor(test$classe))
+```
+
+## Predict for given test set
+
+
+```{r}
+val = read.csv("pml-testing.csv")
+val[is.na(val)] <- -10000
+
+predict(rfm,val[,-160])
+```
+
+
