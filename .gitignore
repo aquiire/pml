@@ -1,3 +1,4 @@
 .ipynb_chackpoints/
 *.csv
 *.ipynb
+*.nb.html
