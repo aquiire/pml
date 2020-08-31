@@ -1,3 +1,3 @@
 # Practical Machine Learning Assignment
 
-Visit aquiire.github.io/pml
+Visit http://aquiire.github.io/pml
