@@ -24,6 +24,20 @@ Task is to predict class given an observation. Procedure: clean data (feature ex
 library(caret)
 ```
 
+To get an idea about the variables which are categorical we can see unique value counts of each feature
+
+```{r}
+for (feature in names(df)){
+  print(sprintf("%s %d",feature,length(unique(df[,feature]))))
+}
+# uniqueCountDf = data.frame(names(df),length(unique(df[,names(df)])))
+```
+We would remove the following features by observation:
+
+`user_name,X,raw_timestamp_part_1,raw_timestamp_part_2,raw_timestamp_part_2,new_window,num_window`
+
+user_names is removed to make the model more generalisable, timestamps and windows are removed because the model is not based on timeseries analysis
+
 ## Impute
 
 Impute unknown value with large negative value
@@ -67,15 +81,17 @@ unique(test$classe)
 
 
 ```{r}
-rfm = train(x=train[c(1:1000),-160],y=train[c(1:1000),]$classe,method='rf')
+library(doParallel)
+cl <- makePSOCKcluster(8)
+registerDoParallel(cl)
+rfm = train(x=train[,-c(160,1:7)],y=train[,]$classe,method='rf')
+stopCluster(cl)
 ```
 ## Test Model
 
 
-
-
 ```{r}
-confusionMatrix(factor(predict(rfm,test[,-160])),factor(test$classe))
+confusionMatrix(factor(predict(rfm,test[,-c(160,1:7)])),factor(test$classe))
 ```
 
 ## Predict for given test set
