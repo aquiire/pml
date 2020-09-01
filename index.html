@@ -2075,6 +2075,174 @@ print(dim(df))</code></pre>
 <pre><code>## Loading required package: ggplot2</code></pre>
 <pre><code>## Warning: replacing previous import &#39;vctrs::data_frame&#39; by &#39;tibble::data_frame&#39;
 ## when loading &#39;dplyr&#39;</code></pre>
+<p>To get an idea about the variables which are categorical we can see unique value counts of each feature</p>
+<pre class="r"><code>for (feature in names(df)){
+  print(sprintf(&quot;%s %d&quot;,feature,length(unique(df[,feature]))))
+}</code></pre>
+<pre><code>## [1] &quot;X 19622&quot;
+## [1] &quot;user_name 6&quot;
+## [1] &quot;raw_timestamp_part_1 837&quot;
+## [1] &quot;raw_timestamp_part_2 16783&quot;
+## [1] &quot;cvtd_timestamp 20&quot;
+## [1] &quot;new_window 2&quot;
+## [1] &quot;num_window 858&quot;
+## [1] &quot;roll_belt 1330&quot;
+## [1] &quot;pitch_belt 1840&quot;
+## [1] &quot;yaw_belt 1957&quot;
+## [1] &quot;total_accel_belt 29&quot;
+## [1] &quot;kurtosis_roll_belt 397&quot;
+## [1] &quot;kurtosis_picth_belt 317&quot;
+## [1] &quot;kurtosis_yaw_belt 2&quot;
+## [1] &quot;skewness_roll_belt 395&quot;
+## [1] &quot;skewness_roll_belt.1 338&quot;
+## [1] &quot;skewness_yaw_belt 2&quot;
+## [1] &quot;max_roll_belt 196&quot;
+## [1] &quot;max_picth_belt 23&quot;
+## [1] &quot;max_yaw_belt 68&quot;
+## [1] &quot;min_roll_belt 185&quot;
+## [1] &quot;min_pitch_belt 17&quot;
+## [1] &quot;min_yaw_belt 68&quot;
+## [1] &quot;amplitude_roll_belt 149&quot;
+## [1] &quot;amplitude_pitch_belt 14&quot;
+## [1] &quot;amplitude_yaw_belt 4&quot;
+## [1] &quot;var_total_accel_belt 66&quot;
+## [1] &quot;avg_roll_belt 192&quot;
+## [1] &quot;stddev_roll_belt 70&quot;
+## [1] &quot;var_roll_belt 97&quot;
+## [1] &quot;avg_pitch_belt 215&quot;
+## [1] &quot;stddev_pitch_belt 44&quot;
+## [1] &quot;var_pitch_belt 64&quot;
+## [1] &quot;avg_yaw_belt 241&quot;
+## [1] &quot;stddev_yaw_belt 59&quot;
+## [1] &quot;var_yaw_belt 146&quot;
+## [1] &quot;gyros_belt_x 140&quot;
+## [1] &quot;gyros_belt_y 69&quot;
+## [1] &quot;gyros_belt_z 169&quot;
+## [1] &quot;accel_belt_x 164&quot;
+## [1] &quot;accel_belt_y 143&quot;
+## [1] &quot;accel_belt_z 299&quot;
+## [1] &quot;magnet_belt_x 327&quot;
+## [1] &quot;magnet_belt_y 298&quot;
+## [1] &quot;magnet_belt_z 457&quot;
+## [1] &quot;roll_arm 2654&quot;
+## [1] &quot;pitch_arm 3087&quot;
+## [1] &quot;yaw_arm 2876&quot;
+## [1] &quot;total_accel_arm 66&quot;
+## [1] &quot;var_accel_arm 396&quot;
+## [1] &quot;avg_roll_arm 331&quot;
+## [1] &quot;stddev_roll_arm 331&quot;
+## [1] &quot;var_roll_arm 331&quot;
+## [1] &quot;avg_pitch_arm 331&quot;
+## [1] &quot;stddev_pitch_arm 331&quot;
+## [1] &quot;var_pitch_arm 331&quot;
+## [1] &quot;avg_yaw_arm 331&quot;
+## [1] &quot;stddev_yaw_arm 328&quot;
+## [1] &quot;var_yaw_arm 328&quot;
+## [1] &quot;gyros_arm_x 643&quot;
+## [1] &quot;gyros_arm_y 376&quot;
+## [1] &quot;gyros_arm_z 248&quot;
+## [1] &quot;accel_arm_x 777&quot;
+## [1] &quot;accel_arm_y 537&quot;
+## [1] &quot;accel_arm_z 792&quot;
+## [1] &quot;magnet_arm_x 1339&quot;
+## [1] &quot;magnet_arm_y 872&quot;
+## [1] &quot;magnet_arm_z 1265&quot;
+## [1] &quot;kurtosis_roll_arm 330&quot;
+## [1] &quot;kurtosis_picth_arm 328&quot;
+## [1] &quot;kurtosis_yaw_arm 395&quot;
+## [1] &quot;skewness_roll_arm 331&quot;
+## [1] &quot;skewness_pitch_arm 328&quot;
+## [1] &quot;skewness_yaw_arm 395&quot;
+## [1] &quot;max_roll_arm 291&quot;
+## [1] &quot;max_picth_arm 264&quot;
+## [1] &quot;max_yaw_arm 52&quot;
+## [1] &quot;min_roll_arm 279&quot;
+## [1] &quot;min_pitch_arm 291&quot;
+## [1] &quot;min_yaw_arm 39&quot;
+## [1] &quot;amplitude_roll_arm 307&quot;
+## [1] &quot;amplitude_pitch_arm 295&quot;
+## [1] &quot;amplitude_yaw_arm 52&quot;
+## [1] &quot;roll_dumbbell 16523&quot;
+## [1] &quot;pitch_dumbbell 16040&quot;
+## [1] &quot;yaw_dumbbell 16381&quot;
+## [1] &quot;kurtosis_roll_dumbbell 398&quot;
+## [1] &quot;kurtosis_picth_dumbbell 401&quot;
+## [1] &quot;kurtosis_yaw_dumbbell 2&quot;
+## [1] &quot;skewness_roll_dumbbell 401&quot;
+## [1] &quot;skewness_pitch_dumbbell 402&quot;
+## [1] &quot;skewness_yaw_dumbbell 2&quot;
+## [1] &quot;max_roll_dumbbell 339&quot;
+## [1] &quot;max_picth_dumbbell 340&quot;
+## [1] &quot;max_yaw_dumbbell 73&quot;
+## [1] &quot;min_roll_dumbbell 333&quot;
+## [1] &quot;min_pitch_dumbbell 357&quot;
+## [1] &quot;min_yaw_dumbbell 73&quot;
+## [1] &quot;amplitude_roll_dumbbell 388&quot;
+## [1] &quot;amplitude_pitch_dumbbell 384&quot;
+## [1] &quot;amplitude_yaw_dumbbell 3&quot;
+## [1] &quot;total_accel_dumbbell 43&quot;
+## [1] &quot;var_accel_dumbbell 385&quot;
+## [1] &quot;avg_roll_dumbbell 398&quot;
+## [1] &quot;stddev_roll_dumbbell 392&quot;
+## [1] &quot;var_roll_dumbbell 392&quot;
+## [1] &quot;avg_pitch_dumbbell 398&quot;
+## [1] &quot;stddev_pitch_dumbbell 392&quot;
+## [1] &quot;var_pitch_dumbbell 392&quot;
+## [1] &quot;avg_yaw_dumbbell 398&quot;
+## [1] &quot;stddev_yaw_dumbbell 392&quot;
+## [1] &quot;var_yaw_dumbbell 392&quot;
+## [1] &quot;gyros_dumbbell_x 241&quot;
+## [1] &quot;gyros_dumbbell_y 278&quot;
+## [1] &quot;gyros_dumbbell_z 206&quot;
+## [1] &quot;accel_dumbbell_x 425&quot;
+## [1] &quot;accel_dumbbell_y 466&quot;
+## [1] &quot;accel_dumbbell_z 410&quot;
+## [1] &quot;magnet_dumbbell_x 1128&quot;
+## [1] &quot;magnet_dumbbell_y 844&quot;
+## [1] &quot;magnet_dumbbell_z 676&quot;
+## [1] &quot;roll_forearm 2176&quot;
+## [1] &quot;pitch_forearm 2915&quot;
+## [1] &quot;yaw_forearm 1991&quot;
+## [1] &quot;kurtosis_roll_forearm 322&quot;
+## [1] &quot;kurtosis_picth_forearm 323&quot;
+## [1] &quot;kurtosis_yaw_forearm 2&quot;
+## [1] &quot;skewness_roll_forearm 323&quot;
+## [1] &quot;skewness_pitch_forearm 319&quot;
+## [1] &quot;skewness_yaw_forearm 2&quot;
+## [1] &quot;max_roll_forearm 272&quot;
+## [1] &quot;max_picth_forearm 156&quot;
+## [1] &quot;max_yaw_forearm 45&quot;
+## [1] &quot;min_roll_forearm 270&quot;
+## [1] &quot;min_pitch_forearm 172&quot;
+## [1] &quot;min_yaw_forearm 45&quot;
+## [1] &quot;amplitude_roll_forearm 294&quot;
+## [1] &quot;amplitude_pitch_forearm 184&quot;
+## [1] &quot;amplitude_yaw_forearm 3&quot;
+## [1] &quot;total_accel_forearm 70&quot;
+## [1] &quot;var_accel_forearm 400&quot;
+## [1] &quot;avg_roll_forearm 323&quot;
+## [1] &quot;stddev_roll_forearm 321&quot;
+## [1] &quot;var_roll_forearm 321&quot;
+## [1] &quot;avg_pitch_forearm 325&quot;
+## [1] &quot;stddev_pitch_forearm 324&quot;
+## [1] &quot;var_pitch_forearm 325&quot;
+## [1] &quot;avg_yaw_forearm 325&quot;
+## [1] &quot;stddev_yaw_forearm 323&quot;
+## [1] &quot;var_yaw_forearm 323&quot;
+## [1] &quot;gyros_forearm_x 298&quot;
+## [1] &quot;gyros_forearm_y 741&quot;
+## [1] &quot;gyros_forearm_z 307&quot;
+## [1] &quot;accel_forearm_x 794&quot;
+## [1] &quot;accel_forearm_y 1003&quot;
+## [1] &quot;accel_forearm_z 580&quot;
+## [1] &quot;magnet_forearm_x 1524&quot;
+## [1] &quot;magnet_forearm_y 1872&quot;
+## [1] &quot;magnet_forearm_z 1683&quot;
+## [1] &quot;classe 5&quot;</code></pre>
+<pre class="r"><code># uniqueCountDf = data.frame(names(df),length(unique(df[,names(df)])))</code></pre>
+<p>We would remove the following features by observation:</p>
+<p><code>user_name,X,raw_timestamp_part_1,raw_timestamp_part_2,raw_timestamp_part_2,new_window,num_window</code></p>
+<p>user_names is removed to make the model more generalisable, timestamps and windows are removed because the model is not based on timeseries analysis</p>
 </div>
 <div id="impute" class="section level2">
 <h2>Impute</h2>
@@ -2100,43 +2268,50 @@ test = df[-inTrain,]</code></pre>
 <h2>Train random forest model</h2>
 <pre class="r"><code>unique(test$classe)</code></pre>
 <pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot;</code></pre>
-<pre class="r"><code>rfm = train(x=train[c(1:1000),-160],y=train[c(1:1000),]$classe,method=&#39;rf&#39;)</code></pre>
+<pre class="r"><code>library(doParallel)</code></pre>
+<pre><code>## Loading required package: foreach</code></pre>
+<pre><code>## Loading required package: iterators</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre class="r"><code>cl &lt;- makePSOCKcluster(8)
+registerDoParallel(cl)
+rfm = train(x=train[,-c(160,1:7)],y=train[,]$classe,method=&#39;rf&#39;)
+stopCluster(cl)</code></pre>
 </div>
 <div id="test-model" class="section level2">
 <h2>Test Model</h2>
-<pre class="r"><code>confusionMatrix(factor(predict(rfm,test[,-160])),factor(test$classe))</code></pre>
+<pre class="r"><code>confusionMatrix(factor(predict(rfm,test[,-c(160,1:7)])),factor(test$classe))</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1395    0    0    0    0
-##          B    0  949    5    0    0
-##          C    0    0  850    0    0
-##          D    0    0    0  804    0
-##          E    0    0    0    0  901
+##          A 1394    5    0    0    0
+##          B    0  941    4    0    1
+##          C    1    3  848   14    1
+##          D    0    0    3  788    0
+##          E    0    0    0    2  899
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.999           
-##                  95% CI : (0.9976, 0.9997)
+##                Accuracy : 0.9931          
+##                  95% CI : (0.9903, 0.9952)
 ##     No Information Rate : 0.2845          
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.9987          
+##                   Kappa : 0.9912          
 ##                                           
 ##  Mcnemar&#39;s Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   1.0000   0.9942   1.0000   1.0000
-## Specificity            1.0000   0.9987   1.0000   1.0000   1.0000
-## Pos Pred Value         1.0000   0.9948   1.0000   1.0000   1.0000
-## Neg Pred Value         1.0000   1.0000   0.9988   1.0000   1.0000
+## Sensitivity            0.9993   0.9916   0.9918   0.9801   0.9978
+## Specificity            0.9986   0.9987   0.9953   0.9993   0.9995
+## Pos Pred Value         0.9964   0.9947   0.9781   0.9962   0.9978
+## Neg Pred Value         0.9997   0.9980   0.9983   0.9961   0.9995
 ## Prevalence             0.2845   0.1935   0.1743   0.1639   0.1837
-## Detection Rate         0.2845   0.1935   0.1733   0.1639   0.1837
-## Detection Prevalence   0.2845   0.1945   0.1733   0.1639   0.1837
-## Balanced Accuracy      1.0000   0.9994   0.9971   1.0000   1.0000</code></pre>
+## Detection Rate         0.2843   0.1919   0.1729   0.1607   0.1833
+## Detection Prevalence   0.2853   0.1929   0.1768   0.1613   0.1837
+## Balanced Accuracy      0.9989   0.9952   0.9936   0.9897   0.9986</code></pre>
 </div>
 <div id="predict-for-given-test-set" class="section level2">
 <h2>Predict for given test set</h2>
@@ -2144,7 +2319,7 @@ test = df[-inTrain,]</code></pre>
 val[is.na(val)] &lt;- -10000
 
 predict(rfm,val[,-160])</code></pre>
-<pre><code>##  [1] A A A A A A A A A A A A A A A A A A A A
+<pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
 ## Levels: A B C D E</code></pre>
 </div>
 
