@@ -4,6 +4,9 @@ output:
   html_document:
     df_print: paged
 ---
+```{r setup, include = FALSE}
+#knitr::opts_chunk$set(eval = FALSE)
+```
 ## Explore
  
 
@@ -30,7 +33,6 @@ To get an idea about the variables which are categorical we can see unique value
 for (feature in names(df)){
   print(sprintf("%s %d",feature,length(unique(df[,feature]))))
 }
-# uniqueCountDf = data.frame(names(df),length(unique(df[,names(df)])))
 ```
 We would remove the following features by observation:
 
@@ -40,7 +42,7 @@ user_names is removed to make the model more generalisable, timestamps and windo
 
 ## Impute
 
-Impute unknown value with large negative value
+Impute unknown values with large negative value `-10000`
 
 ```{r}
 df[is.na(df)] <- -10000
@@ -84,9 +86,17 @@ unique(test$classe)
 library(doParallel)
 cl <- makePSOCKcluster(8)
 registerDoParallel(cl)
-rfm = train(x=train[,-c(160,1:7)],y=train[,]$classe,method='rf')
+rfm = train(x=train[,-c(160,1:7)],y=train[,]$classe,method='rf',trainControl=trainControl(method='cv',number=5))
 stopCluster(cl)
 ```
+## Out of sample Error and Accuracy
+
+```{r}
+rfm$finalModel
+```
+
+
+
 ## Test Model
 
 

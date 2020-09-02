@@ -2239,14 +2239,13 @@ print(dim(df))</code></pre>
 ## [1] &quot;magnet_forearm_y 1872&quot;
 ## [1] &quot;magnet_forearm_z 1683&quot;
 ## [1] &quot;classe 5&quot;</code></pre>
-<pre class="r"><code># uniqueCountDf = data.frame(names(df),length(unique(df[,names(df)])))</code></pre>
 <p>We would remove the following features by observation:</p>
 <p><code>user_name,X,raw_timestamp_part_1,raw_timestamp_part_2,raw_timestamp_part_2,new_window,num_window</code></p>
 <p>user_names is removed to make the model more generalisable, timestamps and windows are removed because the model is not based on timeseries analysis</p>
 </div>
 <div id="impute" class="section level2">
 <h2>Impute</h2>
-<p>Impute unknown value with large negative value</p>
+<p>Impute unknown values with large negative value <code>-10000</code></p>
 <pre class="r"><code>df[is.na(df)] &lt;- -10000</code></pre>
 </div>
 <div id="split" class="section level2">
@@ -2274,8 +2273,27 @@ test = df[-inTrain,]</code></pre>
 <pre><code>## Loading required package: parallel</code></pre>
 <pre class="r"><code>cl &lt;- makePSOCKcluster(8)
 registerDoParallel(cl)
-rfm = train(x=train[,-c(160,1:7)],y=train[,]$classe,method=&#39;rf&#39;)
+rfm = train(x=train[,-c(160,1:7)],y=train[,]$classe,method=&#39;rf&#39;,trainControl=trainControl(method=&#39;cv&#39;,number=5))
 stopCluster(cl)</code></pre>
+</div>
+<div id="out-of-sample-error-and-accuracy" class="section level2">
+<h2>Out of sample Error and Accuracy</h2>
+<pre class="r"><code>rfm$finalModel</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(x = x, y = y, mtry = param$mtry, trainControl = ..1) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 77
+## 
+##         OOB estimate of  error rate: 0.58%
+## Confusion matrix:
+##      A    B    C    D    E  class.error
+## A 4181    3    0    0    1 0.0009557945
+## B   18 2824    5    1    0 0.0084269663
+## C    0   12 2548    7    0 0.0074016362
+## D    0    1   26 2384    1 0.0116086235
+## E    0    0    4    6 2696 0.0036954915</code></pre>
 </div>
 <div id="test-model" class="section level2">
 <h2>Test Model</h2>
